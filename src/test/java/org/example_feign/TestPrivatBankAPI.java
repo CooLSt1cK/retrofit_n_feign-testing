@@ -1,8 +1,10 @@
-package org.example;
+package org.example_feign;
 
-import feign.Response;
-import org.example.dto.ExchangeRateDTO;
-import org.example.dto.ExchangeRatesResponse;
+import feign.codec.Decoder;
+import feign.jackson.JacksonDecoder;
+import org.example_feign.dto.ExchangeRateDTO;
+import org.example_feign.dto.ExchangeRatesResponse;
+import org.example_feign.dto.ExchangeTwoCurrencyDTO;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
@@ -12,6 +14,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.io.IOException;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -21,6 +25,7 @@ public class TestPrivatBankAPI {
 
     @Autowired
     public PrivatBankApiClient client;
+    public Decoder jsonDecoder = new JacksonDecoder();
 
     @BeforeEach
     public void setup() {
@@ -40,7 +45,13 @@ public class TestPrivatBankAPI {
 
     @Test
     public void getError() {
-        Response response = client.getError();
-        System.out.println(response.status());
+        ExchangeRatesResponse response = client.getError();
+        System.out.println();
+    }
+
+    @Test
+    public void getCurrentExchange() {
+        List<ExchangeTwoCurrencyDTO> response = client.getExchangeCurrent(11);
+        System.out.println(response.stream().map(ExchangeTwoCurrencyDTO::toString).collect(Collectors.joining("\n")));
     }
 }

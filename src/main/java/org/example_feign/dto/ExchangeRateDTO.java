@@ -1,4 +1,4 @@
-package org.example.dto;
+package org.example_feign.dto;
 
 public class ExchangeRateDTO {
 
