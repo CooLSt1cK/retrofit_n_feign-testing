@@ -1,5 +1,9 @@
-package org.example.dto;
+package org.dto;
 
+/**
+ * <p style="color: green; font-size: 1.5em">
+ * Exchange rate Data Transfer Object for parsing received json into Java object</p>
+ */
 public class ExchangeRateDTO {
 
     private String baseCurrency;

@@ -1,28 +1,35 @@
 package org.example_retrofit;
 
-import org.example.dto.ExchangeRateDTO;
-import org.example.dto.ExchangeRatesResponse;
+import org.dto.ExchangeRateDTO;
+import org.dto.ExchangeRatesResponse;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import java.io.IOException;
-import java.util.stream.Collectors;
 
+/**
+ * <p style="color: green; font-size: 1.5em">
+ * Testing Privat24 exchange rates api using Retrofit framework</p>
+ */
 public class TestPrivatRetrofitAPI {
 
     private BasicApi basicApi;
 
     @Before
     public void init() {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.privatbank.ua").addConverterFactory(JacksonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://api.privatbank.ua")
+                .addConverterFactory(JacksonConverterFactory.create())
+                .build();
 
         basicApi = retrofit.create(BasicApi.class);
     }
 
     @Test
-    public void getExchangeRates() {
+    public void checkThatExchangeRatesNotNull() {
         ExchangeRatesResponse response;
 
         try {
@@ -31,6 +38,8 @@ public class TestPrivatRetrofitAPI {
             throw new RuntimeException(e);
         }
 
-        System.out.println(response.exchangeRate.stream().map(ExchangeRateDTO::toString).collect(Collectors.joining("\n")));
+        response.exchangeRate.stream()
+                .map(ExchangeRateDTO::toString)
+                .forEach(Assert::assertNotNull);
     }
 }

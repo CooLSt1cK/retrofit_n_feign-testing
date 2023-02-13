@@ -1,4 +1,4 @@
-package org.example.dto;
+package org.dto;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -6,6 +6,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * <p style="color: green; font-size: 1.5em">
+ * Exchange rate Response</p>
+ */
 public class ExchangeRatesResponse {
 
     @JsonFormat(pattern = "dd.MM.YYYY")

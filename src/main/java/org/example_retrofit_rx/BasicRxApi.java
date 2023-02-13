@@ -1,6 +1,6 @@
 package org.example_retrofit_rx;
 
-import org.example.dto.ExchangeRatesResponse;
+import org.dto.ExchangeRatesResponse;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 import rx.Observable;

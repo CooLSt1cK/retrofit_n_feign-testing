@@ -2,7 +2,7 @@ package org.example;
 
 import feign.Response;
 import org.example.config.PrivateBankApiConfig;
-import org.example.dto.ExchangeRatesResponse;
+import org.dto.ExchangeRatesResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;

@@ -10,9 +10,14 @@ import org.springframework.cloud.openfeign.FeignClientsConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * <p style="color: green; font-size: 1.5em">
+ * Spring configuration</p>
+ */
 @Configuration
 public class PrivateBankApiConfig extends FeignClientsConfiguration {
 
+    @Override
     @Bean
     public Retryer feignRetryer(){
         return new MyRetryer();
