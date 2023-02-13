@@ -1,7 +1,7 @@
 package org.example_retrofit;
 
-import org.dto.ExchangeRateDTO;
-import org.dto.ExchangeRatesResponse;
+import org.example_feign.dto.ExchangeRateDTO;
+import org.example_feign.dto.ExchangeRatesResponse;
 
 import java.util.stream.Collectors;
 

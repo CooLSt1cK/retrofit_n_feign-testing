@@ -1,6 +1,6 @@
 package org.example_retrofit_rx;
 
-import org.dto.ExchangeRatesResponse;
+import org.example_feign.dto.ExchangeRatesResponse;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;

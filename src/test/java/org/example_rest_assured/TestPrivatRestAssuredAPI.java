@@ -1,7 +1,7 @@
 package org.example_rest_assured;
 
 import io.restassured.RestAssured;
-import org.dto.ExchangeRateDTO;
+import org.example_feign.dto.ExchangeRateDTO;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

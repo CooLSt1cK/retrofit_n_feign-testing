@@ -1,6 +1,6 @@
 package org.example_retrofit_rx;
 
-import org.dto.ExchangeRateDTO;
+import org.example_feign.dto.ExchangeRateDTO;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

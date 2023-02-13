@@ -1,6 +1,6 @@
 package org.example_retrofit;
 
-import org.dto.ExchangeRatesResponse;
+import org.example_feign.dto.ExchangeRatesResponse;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
