@@ -2,6 +2,7 @@ package org.example_retrofit;
 
 import org.example.dto.ExchangeRateDTO;
 import org.example.dto.ExchangeRatesResponse;
+import org.junit.Before;
 import org.junit.Test;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
@@ -13,12 +14,16 @@ public class TestPrivatRetrofitAPI {
 
     private BasicApi basicApi;
 
-    @Test
-    public void getExchangeRates() {
+    @Before
+    public void init() {
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://api.privatbank.ua").addConverterFactory(JacksonConverterFactory.create()).build();
-        ExchangeRatesResponse response;
 
         basicApi = retrofit.create(BasicApi.class);
+    }
+
+    @Test
+    public void getExchangeRates() {
+        ExchangeRatesResponse response;
 
         try {
             response = basicApi.getExchangeRates("01.12.2014").execute().body();
