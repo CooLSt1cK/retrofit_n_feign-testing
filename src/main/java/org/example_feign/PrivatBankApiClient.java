@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.List;
 
 @FeignClient(value = "privat-bank-api", url = "https://api.privatbank.ua", configuration = PrivateBankApiConfig.class)
-@Headers({ "Accept: application/json"})
+@Headers({"Accept: application/json"})
 public interface PrivatBankApiClient {
 
     @GetMapping("/p24api/exchange_rates")

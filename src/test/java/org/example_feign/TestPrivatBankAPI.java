@@ -5,6 +5,7 @@ import feign.jackson.JacksonDecoder;
 import org.example_feign.dto.ExchangeRateDTO;
 import org.example_feign.dto.ExchangeRatesResponse;
 import org.example_feign.dto.ExchangeTwoCurrencyDTO;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
@@ -14,7 +15,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,18 +40,27 @@ public class TestPrivatBankAPI {
     @Test
     public void getExchangeRates() {
         ExchangeRatesResponse response = client.getExchangeRatesPBAndNB("01.12.2014");
-        System.out.println(response.exchangeRate.stream().map(ExchangeRateDTO::toString).collect(Collectors.joining("\n")));
+        System.out.println(response.exchangeRate.stream()
+                .map(ExchangeRateDTO::toString)
+                .collect(Collectors.joining("\n")));
+        response.exchangeRate.stream()
+                .map(ExchangeRateDTO::toString)
+                .forEach(Assert::assertNotNull);
     }
 
     @Test
     public void getError() {
         ExchangeRatesResponse response = client.getError();
-        System.out.println();
     }
 
     @Test
     public void getCurrentExchange() {
         List<ExchangeTwoCurrencyDTO> response = client.getExchangeCurrent(11);
-        System.out.println(response.stream().map(ExchangeTwoCurrencyDTO::toString).collect(Collectors.joining("\n")));
+        System.out.println(response.stream()
+                .map(ExchangeTwoCurrencyDTO::toString)
+                .collect(Collectors.joining("\n")));
+        response.stream()
+                .map(ExchangeTwoCurrencyDTO::toString)
+                .forEach(Assert::assertNotNull);
     }
 }
