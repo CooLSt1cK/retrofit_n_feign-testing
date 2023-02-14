@@ -27,7 +27,9 @@ public class TestPrivatRestAssuredAPI {
     public void checkThatExchangeRatesNotNull() {
         String date = "01.12.2014";
 
-        List<ExchangeRateDTO> listDTO = given().get(baseURI + "date=" + date)
+        List<ExchangeRateDTO> listDTO = given().when().get(baseURI + "date=" + date)
+                .then()
+                .extract()
                 .jsonPath()
                 .getList("exchangeRate", ExchangeRateDTO.class);
 
