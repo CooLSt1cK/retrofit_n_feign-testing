@@ -2,7 +2,6 @@ package org.example_feign.config;
 
 import feign.Logger;
 import feign.Logger.Level;
-import feign.Response;
 import feign.Retryer;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
@@ -14,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class PrivateBankApiConfig extends FeignClientsConfiguration {
+public class PrivatBankApiConfig extends FeignClientsConfiguration {
 
     @Bean
     public Retryer feignRetryer() {
@@ -22,7 +21,7 @@ public class PrivateBankApiConfig extends FeignClientsConfiguration {
     }
 
     @Bean
-    public ErrorDecoder feignErrorDecoder(){
+    public ErrorDecoder feignErrorDecoder() {
         return new MyErrorDecoder();
     }
 

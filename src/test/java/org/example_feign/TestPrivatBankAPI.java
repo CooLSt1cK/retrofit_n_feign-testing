@@ -1,7 +1,6 @@
 package org.example_feign;
 
-import feign.codec.Decoder;
-import feign.jackson.JacksonDecoder;
+import org.example_feign.feign.PrivatBankApiClient;
 import org.example_feign.dto.ExchangeRateDTO;
 import org.example_feign.dto.ExchangeRatesResponse;
 import org.example_feign.dto.ExchangeTwoCurrencyDTO;
@@ -25,7 +24,6 @@ public class TestPrivatBankAPI {
 
     @Autowired
     public PrivatBankApiClient client;
-    public Decoder jsonDecoder = new JacksonDecoder();
 
     @BeforeEach
     public void setup() {
@@ -40,9 +38,7 @@ public class TestPrivatBankAPI {
     @Test
     public void getExchangeRates() {
         ExchangeRatesResponse response = client.getExchangeRatesPBAndNB("01.12.2014");
-        System.out.println(response.exchangeRate.stream()
-                .map(ExchangeRateDTO::toString)
-                .collect(Collectors.joining("\n")));
+        System.out.println(response);
         response.exchangeRate.stream()
                 .map(ExchangeRateDTO::toString)
                 .forEach(Assert::assertNotNull);

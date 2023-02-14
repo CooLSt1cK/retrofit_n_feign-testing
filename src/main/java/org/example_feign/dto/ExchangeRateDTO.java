@@ -1,5 +1,7 @@
 package org.example_feign.dto;
 
+import java.util.Objects;
+
 public class ExchangeRateDTO {
 
     private String baseCurrency;
@@ -68,5 +70,45 @@ public class ExchangeRateDTO {
                 ", saleRate=" + saleRate +
                 ", purchaseRate=" + purchaseRate +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        ExchangeRateDTO that = (ExchangeRateDTO) o;
+
+        if (!Objects.equals(baseCurrency, that.baseCurrency)) {
+            return false;
+        }
+        if (!Objects.equals(currency, that.currency)) {
+            return false;
+        }
+        if (!Objects.equals(saleRateNB, that.saleRateNB)) {
+            return false;
+        }
+        if (!Objects.equals(purchaseRateNB, that.purchaseRateNB)) {
+            return false;
+        }
+        if (!Objects.equals(saleRate, that.saleRate)) {
+            return false;
+        }
+        return Objects.equals(purchaseRate, that.purchaseRate);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = baseCurrency != null ? baseCurrency.hashCode() : 0;
+        result = 31 * result + (currency != null ? currency.hashCode() : 0);
+        result = 31 * result + (saleRateNB != null ? saleRateNB.hashCode() : 0);
+        result = 31 * result + (purchaseRateNB != null ? purchaseRateNB.hashCode() : 0);
+        result = 31 * result + (saleRate != null ? saleRate.hashCode() : 0);
+        result = 31 * result + (purchaseRate != null ? purchaseRate.hashCode() : 0);
+        return result;
     }
 }

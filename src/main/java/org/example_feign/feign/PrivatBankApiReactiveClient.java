@@ -1,15 +1,14 @@
-package org.example_reactive_feign;
+package org.example_feign.feign;
 
 
 import feign.Headers;
+import io.reactivex.Observable;
 import org.example_feign.dto.ExchangeRatesResponse;
 import org.example_feign.dto.ExchangeTwoCurrencyDTO;
-import org.example_reactive_feign.config.PrivatBankApiReactiveConfig;
+import org.example_feign.config.PrivatBankApiReactiveConfig;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import reactivefeign.spring.config.ReactiveFeignClient;
-import reactor.core.publisher.Flux;
-import rx.Observable;
 
 import java.util.List;
 
@@ -18,11 +17,11 @@ import java.util.List;
 public interface PrivatBankApiReactiveClient {
 
     @GetMapping("/p24api/exchange_rates")
-    Flux<ExchangeRatesResponse> getExchangeRatesPBAndNB(@RequestParam("date") String date);
+    Observable<ExchangeRatesResponse> getExchangeRatesPBAndNB(@RequestParam("date") String date);
 
     @GetMapping("/p24api/exchange_rates")
-    Flux<ExchangeRatesResponse> getError();
+    Observable<ExchangeRatesResponse> getError();
 
     @GetMapping(value = "/p24api/pubinfo")
-    Flux<List<ExchangeTwoCurrencyDTO>> getExchangeCurrent(@RequestParam("coursid") Integer courseId);
+    Observable<List<ExchangeTwoCurrencyDTO>> getExchangeCurrent(@RequestParam("coursid") Integer courseId);
 }
