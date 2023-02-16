@@ -1,9 +1,9 @@
 package org.example_feign;
 
-import org.example_feign.feign.PrivatBankApiClient;
 import org.example_feign.dto.ExchangeRateDTO;
 import org.example_feign.dto.ExchangeRatesResponse;
 import org.example_feign.dto.ExchangeTwoCurrencyDTO;
+import org.example_feign.feign.PrivatBankApiClient;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;

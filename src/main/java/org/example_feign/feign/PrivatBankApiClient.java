@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(value = "privat-bank-api", url = "https://api.privatbank.ua", configuration = PrivatBankApiConfig.class)
+@FeignClient(value = "privat-bank-api",
+        url = "https://api.privatbank.ua",
+        configuration = PrivatBankApiConfig.class)
 @Headers({"Accept: application/json"})
 public interface PrivatBankApiClient {
 
