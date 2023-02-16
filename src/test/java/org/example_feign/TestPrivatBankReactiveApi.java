@@ -69,7 +69,7 @@ public class TestPrivatBankReactiveApi {
     private List<ExchangeRatesResponse> sendRequestNTimesViaReactiveClient(int statrtIndex, int n) {
         LinkedList<TestObserver<ExchangeRatesResponse>> testObserverList = new LinkedList<>();
         for (int i = 0; i < n; i++) {
-            testObserverList.add(new TestObserver<>());
+            testObserverList.add(TestObserver.create());
             clientRx.getExchangeRatesPBAndNB("01.0%d.2015".formatted(statrtIndex)).subscribe(testObserverList.getLast());
             statrtIndex++;
         }
