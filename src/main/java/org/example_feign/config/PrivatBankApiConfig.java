@@ -12,6 +12,10 @@ import org.springframework.cloud.openfeign.FeignClientsConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * <p style="color: green; font-size: 1.5em">
+ * Spring configuration</p>
+ */
 @Configuration
 public class PrivatBankApiConfig extends FeignClientsConfiguration {
 

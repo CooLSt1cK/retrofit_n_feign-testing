@@ -2,6 +2,10 @@ package org.example_feign.dto;
 
 import java.util.Objects;
 
+/**
+ * <p style="color: green; font-size: 1.5em">
+ * Exchange rate Data Transfer Object for parsing received json into Java object</p>
+ */
 public class ExchangeRateDTO {
 
     private String baseCurrency;

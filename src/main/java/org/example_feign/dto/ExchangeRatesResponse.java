@@ -1,12 +1,16 @@
 package org.example_feign.dto;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+/**
+ * <p style="color: green; font-size: 1.5em">
+ * Exchange rate Response</p>
+ */
 public class ExchangeRatesResponse {
 
     @JsonFormat(pattern = "dd.MM.YYYY")
