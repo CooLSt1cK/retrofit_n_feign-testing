@@ -5,8 +5,8 @@ import org.example_feign.dto.ExchangeRatesResponse;
 import org.example_feign.feign.PrivatBankApiClient;
 import org.example_feign.feign.PrivatBankApiReactiveClient;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
@@ -34,23 +34,24 @@ public class TestPrivatBankReactiveApi {
     @Autowired
     public PrivatBankApiReactiveClient clientRx;
 
-    @BeforeEach
+    @Before
     public void setUp() {
         //send two requests to equalize response time of future requests
-        client.getExchangeRatesPBAndNB("01.12.2014");
-        client.getExchangeRatesPBAndNB("01.12.2014");
+//        client.getExchangeRatesPBAndNB("01.12.2014");
+//        client.getExchangeRatesPBAndNB("01.12.2014");
     }
 
     @Test
     public void performanceTest() {
-        int executionTimes = 2;
+        int executionTimes = 4;
 
         Date onStart = new Date();
         List<ExchangeRatesResponse> listFromClient = sendRequestNTimesViaClient(executionTimes);
         long spentTime = new Date().getTime() - onStart.getTime();
 
         onStart = new Date();
-        List<ExchangeRatesResponse> listFromRxClient = sendRequestNTimesViaReactiveClient(executionTimes);
+        List<ExchangeRatesResponse> listFromRxClient = sendRequestNTimesViaReactiveClient(1,executionTimes / 2);
+        listFromRxClient.addAll(sendRequestNTimesViaReactiveClient((executionTimes / 2) + 1, executionTimes / 2));
         long spentTimeRx = new Date().getTime() - onStart.getTime();
 
         System.out.println("spentTime: %d\nspentTimeRx: %d".formatted(spentTime, spentTimeRx));
@@ -65,11 +66,12 @@ public class TestPrivatBankReactiveApi {
         return responses;
     }
 
-    private List<ExchangeRatesResponse> sendRequestNTimesViaReactiveClient(int n) {
+    private List<ExchangeRatesResponse> sendRequestNTimesViaReactiveClient(int statrtIndex, int n) {
         LinkedList<TestObserver<ExchangeRatesResponse>> testObserverList = new LinkedList<>();
-        for (int i = 1; i <= n; i++) {
+        for (int i = 0; i < n; i++) {
             testObserverList.add(new TestObserver<>());
-            clientRx.getExchangeRatesPBAndNB("01.0%d.2015".formatted(i)).subscribe(testObserverList.getLast());
+            clientRx.getExchangeRatesPBAndNB("01.0%d.2015".formatted(statrtIndex)).subscribe(testObserverList.getLast());
+            statrtIndex++;
         }
         return testObserverList.stream().map(observer -> {
             try {
