@@ -1,5 +1,7 @@
 package org.example_retrofit_rx;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.example_feign.dto.ExchangeRateDTO;
 import org.example_feign.dto.ExchangeRatesResponse;
 import org.junit.Assert;
@@ -12,7 +14,6 @@ import rx.observers.TestSubscriber;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 /**
  * <p style="color: green; font-size: 1.5em">
@@ -24,8 +25,13 @@ public class TestPrivatRetrofitRxAPI {
 
     @Before
     public void init() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.privatbank.ua")
+                .client(client)
                 .addConverterFactory(JacksonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();

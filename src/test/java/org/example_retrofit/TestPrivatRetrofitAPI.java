@@ -1,5 +1,7 @@
 package org.example_retrofit;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.example_feign.dto.ExchangeRateDTO;
 import org.example_feign.dto.ExchangeRatesResponse;
 import org.junit.Assert;
@@ -20,8 +22,13 @@ public class TestPrivatRetrofitAPI {
 
     @Before
     public void init() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.privatbank.ua")
+                .client(client)
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
 
