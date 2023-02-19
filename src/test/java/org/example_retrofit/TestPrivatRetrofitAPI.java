@@ -49,4 +49,17 @@ public class TestPrivatRetrofitAPI {
                 .map(ExchangeRateDTO::toString)
                 .forEach(Assert::assertNotNull);
     }
+
+    @Test
+    public void checkServerUnavailableError() {
+        int statusCode;
+
+        try {
+            statusCode = basicApi.getExchangeRates("01.12.2030").execute().code();
+            Assert.assertEquals(500, statusCode);
+            System.out.println(basicApi.getExchangeRates("01.12.2030").execute().message());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
