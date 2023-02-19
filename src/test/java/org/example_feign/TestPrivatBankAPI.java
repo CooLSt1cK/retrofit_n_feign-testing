@@ -1,5 +1,6 @@
 package org.example_feign;
 
+import feign.RetryableException;
 import org.example_feign.dto.ExchangeRateDTO;
 import org.example_feign.dto.ExchangeRatesResponse;
 import org.example_feign.dto.ExchangeTwoCurrencyDTO;
@@ -44,9 +45,9 @@ public class TestPrivatBankAPI {
                 .forEach(Assert::assertNotNull);
     }
 
-    @Test
+    @Test(expected = RetryableException.class)
     public void getError() {
-        ExchangeRatesResponse response = client.getError();
+        client.getError();
     }
 
     @Test
