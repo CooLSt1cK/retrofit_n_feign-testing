@@ -7,9 +7,6 @@ import retrofit2.Response;
 import java.io.IOException;
 import java.util.concurrent.Executor;
 
-/**
- * Adapts a {@link Call} to {@link MyCall}.
- */
 public class MyCallAdapter<T> implements MyCall<T> {
 
     private final Call<T> call;
