@@ -1,5 +1,7 @@
 package org.example_retrofit;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import org.example_feign.dto.ExchangeRateDTO;
 import org.example_feign.dto.ExchangeRatesResponse;
 import org.junit.Assert;
@@ -20,8 +22,13 @@ public class TestPrivatRetrofitAPI {
 
     @Before
     public void init() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.level(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.privatbank.ua")
+                .client(client)
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
 
@@ -41,5 +48,18 @@ public class TestPrivatRetrofitAPI {
         response.exchangeRate.stream()
                 .map(ExchangeRateDTO::toString)
                 .forEach(Assert::assertNotNull);
+    }
+
+    @Test
+    public void checkServerUnavailableError() {
+        int statusCode;
+
+        try {
+            statusCode = basicApi.getExchangeRates("01.12.2030").execute().code();
+            Assert.assertEquals(500, statusCode);
+            System.out.println(basicApi.getExchangeRates("01.12.2030").execute().message());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
