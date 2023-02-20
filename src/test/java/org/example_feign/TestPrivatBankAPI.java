@@ -1,5 +1,6 @@
 package org.example_feign;
 
+import feign.Response;
 import feign.RetryableException;
 import org.example_feign.dto.ExchangeRateDTO;
 import org.example_feign.dto.ExchangeRatesResponse;
@@ -15,6 +16,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -48,6 +50,16 @@ public class TestPrivatBankAPI {
     @Test(expected = RetryableException.class)
     public void getError() {
         client.getError();
+    }
+
+    @Test
+    public void getResponse() throws IOException {
+        Response response = client.getResponse("01.12.2014");
+        Assert.assertEquals(200, response.status());
+        Assert.assertFalse(new String(response.body().asInputStream().readAllBytes()).isEmpty());
+        response = client.getResponse("");
+        Assert.assertEquals(500, response.status());
+        Assert.assertFalse(new String(response.body().asInputStream().readAllBytes()).isEmpty());
     }
 
     @Test

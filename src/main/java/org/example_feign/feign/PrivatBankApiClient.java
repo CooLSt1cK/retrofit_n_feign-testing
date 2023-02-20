@@ -1,6 +1,7 @@
 package org.example_feign.feign;
 
 import feign.Headers;
+import feign.Response;
 import org.example_feign.config.PrivatBankApiConfig;
 import org.example_feign.dto.ExchangeRatesResponse;
 import org.example_feign.dto.ExchangeTwoCurrencyDTO;
@@ -21,6 +22,9 @@ public interface PrivatBankApiClient {
 
     @GetMapping("/p24api/exchange_rates")
     ExchangeRatesResponse getError();
+
+    @GetMapping("/p24api/exchange_rates")
+    Response getResponse(@RequestParam("date") String date);
 
     @GetMapping(value = "/p24api/pubinfo")
     List<ExchangeTwoCurrencyDTO> getExchangeCurrent(@RequestParam("coursid") Integer courseId);
