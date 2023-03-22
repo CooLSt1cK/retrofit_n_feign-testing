@@ -1,6 +1,8 @@
 package org.example_feign.feign;
 
 import feign.Headers;
+import feign.Param;
+import feign.RequestLine;
 import feign.Response;
 import org.example_feign.config.PrivatBankApiConfig;
 import org.example_feign.dto.ExchangeRatesResponse;
@@ -17,8 +19,14 @@ import java.util.List;
 @Headers({"Accept: application/json"})
 public interface PrivatBankApiClient {
 
+    //@RequestLine("GET /p24api/exchange_rates")
+    //ExchangeRatesResponse getExchangeRatesWithoutSpring(@Param("date") String date);
+
     @GetMapping("/p24api/exchange_rates")
     ExchangeRatesResponse getExchangeRatesPBAndNB(@RequestParam("date") String date);
+
+    @GetMapping(value = "/p24api/pubinfo")
+    List<ExchangeTwoCurrencyDTO> getExchangeCurrent(@RequestParam("coursid") Integer courseId);
 
     @GetMapping("/p24api/exchange_rates")
     ExchangeRatesResponse getError();
@@ -26,6 +34,4 @@ public interface PrivatBankApiClient {
     @GetMapping("/p24api/exchange_rates")
     Response getResponse(@RequestParam("date") String date);
 
-    @GetMapping(value = "/p24api/pubinfo")
-    List<ExchangeTwoCurrencyDTO> getExchangeCurrent(@RequestParam("coursid") Integer courseId);
 }

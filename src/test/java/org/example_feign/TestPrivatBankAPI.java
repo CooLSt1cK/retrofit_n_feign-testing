@@ -32,9 +32,9 @@ public class TestPrivatBankAPI {
     public void setup() {
         /*client = Feign.builder()
                 .contract(new SpringMvcContract())
-                ls.decoder(new JacksonDecoder())
+                .decoder(new JacksonDecoder())
                 .encoder(new JacksonEncoder())
-                .target(PrivatBankApiClient.class, BASE_URI);
+                .target(PrivatBankApiClient.class, "https://api.privatbank.ua");
         /**/
     }
 
@@ -49,7 +49,7 @@ public class TestPrivatBankAPI {
 
     @Test(expected = RetryableException.class)
     public void getError() {
-        client.getError();
+        client.getExchangeRatesPBAndNB("");
     }
 
     @Test

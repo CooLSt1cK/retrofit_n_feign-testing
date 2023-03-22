@@ -43,16 +43,15 @@ public class TestPrivatBankReactiveApi {
 
     @Test
     public void performanceTest() {
-        int executionTimes = 4;
+        int executionTimes = 2;
 
         Date onStart = new Date();
-        List<ExchangeRatesResponse> listFromClient = sendRequestNTimesViaClient(executionTimes);
-        long spentTime = new Date().getTime() - onStart.getTime();
+        List<ExchangeRatesResponse> listFromRxClient = sendRequestNTimesViaReactiveClient(1, executionTimes);
+        long spentTimeRx = new Date().getTime() - onStart.getTime();
 
         onStart = new Date();
-        List<ExchangeRatesResponse> listFromRxClient = sendRequestNTimesViaReactiveClient(1,executionTimes / 2);
-        listFromRxClient.addAll(sendRequestNTimesViaReactiveClient((executionTimes / 2) + 1, executionTimes / 2));
-        long spentTimeRx = new Date().getTime() - onStart.getTime();
+        List<ExchangeRatesResponse> listFromClient = sendRequestNTimesViaClient(executionTimes);
+        long spentTime = new Date().getTime() - onStart.getTime();
 
         System.out.println("spentTime: %d\nspentTimeRx: %d".formatted(spentTime, spentTimeRx));
         Assert.assertEquals(listFromClient, listFromRxClient);
