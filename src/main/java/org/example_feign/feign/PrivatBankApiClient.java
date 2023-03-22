@@ -25,13 +25,13 @@ public interface PrivatBankApiClient {
     @GetMapping("/p24api/exchange_rates")
     ExchangeRatesResponse getExchangeRatesPBAndNB(@RequestParam("date") String date);
 
+    @GetMapping("/p24api/exchange_rates")
+    Response getResponse(@RequestParam("date") String date);
+
     @GetMapping(value = "/p24api/pubinfo")
     List<ExchangeTwoCurrencyDTO> getExchangeCurrent(@RequestParam("coursid") Integer courseId);
 
     @GetMapping("/p24api/exchange_rates")
     ExchangeRatesResponse getError();
-
-    @GetMapping("/p24api/exchange_rates")
-    Response getResponse(@RequestParam("date") String date);
 
 }
