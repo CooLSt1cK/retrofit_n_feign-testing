@@ -1,5 +1,6 @@
 package org.example_retrofit;
 
+import lombok.SneakyThrows;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.example_feign.dto.ExchangeRateDTO;
@@ -9,8 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
-
-import java.io.IOException;
 
 /**
  * <p style="color: green; font-size: 1.5em">
@@ -35,31 +34,25 @@ public class TestPrivatRetrofitAPI {
         basicApi = retrofit.create(BasicApi.class);
     }
 
+    @SneakyThrows
     @Test
     public void checkThatExchangeRatesNotNull() {
         ExchangeRatesResponse response;
 
-        try {
-            response = basicApi.getExchangeRates("01.12.2014").execute().body();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        response = basicApi.getExchangeRates("01.12.2014").execute().body();
 
         response.exchangeRate.stream()
                 .map(ExchangeRateDTO::toString)
                 .forEach(Assert::assertNotNull);
     }
 
+    @SneakyThrows
     @Test
     public void checkServerUnavailableError() {
         int statusCode;
 
-        try {
-            statusCode = basicApi.getExchangeRates("01.12.2030").execute().code();
-            Assert.assertEquals(500, statusCode);
-            System.out.println(basicApi.getExchangeRates("01.12.2030").execute().message());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        statusCode = basicApi.getExchangeRates("01.12.2030").execute().code();
+        Assert.assertEquals(500, statusCode);
+        System.out.println(basicApi.getExchangeRates("01.12.2030").execute().message());
     }
 }
